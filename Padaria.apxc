@@ -1,0 +1,34 @@
+Public class padaria {
+	//atributos 
+	Public String nomePadaria, cidade;
+    Private Decimal lucroMes, codContador, lucroAnual;
+    
+    //Setters
+    Public Void setLucroMes (Decimal novoLucroMes){
+        lucroMes = novoLucroMes;
+    }
+    Public Void setCodContador (Decimal novoCodContador){
+        codContador = novoCodContador;
+    }
+    Public Void setLucroAnual (Decimal novoLucroAnual){
+        lucroAnual = novoLucroAnual;
+    }
+    Public Void setPadaria (String novoNomePadaria, String novaCidade, Decimal novoLucroMes, Decimal novoCodContador, Decimal novoLucroAnual){
+        nomePadaria = novoNomePadaria;
+        cidade = novaCidade;
+        lucroMes = novoLucroMes;
+        codContador = novoCodContador;
+        lucroAnual = novoLucroAnual;
+    }
+    
+    //Getters
+    Public Decimal getLucroMes (){
+        return lucroMes;
+    }
+    Public Decimal getcodContador (){
+        return lucroMes;
+    }
+    Public Decimal getlucroAnual (){
+        return lucroMes;
+    }
+}
