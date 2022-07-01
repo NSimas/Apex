@@ -1,0 +1,27 @@
+//criar uma coleção de strings
+
+Set<String> colecaoDeNomes = new Set<String>();
+	colecaoDeNomes.add('Anderson');
+	colecaoDeNomes.add('Luana');
+	colecaoDeNomes.add('Renan');
+	colecaoDeNomes.add('Filipe');
+Set<String> colecaoNomes = new Set<String>{'Alyne','Nélia'};
+
+//verificar se a coleção contém a string indicada
+
+System.debug(colecaoNomes.contains('Anderson'));
+System.debug(colecaoDeNomes.contains('Anderson'));
+
+//verificar quantas posições há na coleção
+
+System.debug(colecaoNomes.size());
+System.debug(colecaoDeNomes.size());
+
+//remover um item da coleção
+
+colecaoDeNomes.remove('Filipe');
+
+//coleções tipo SET não permitem conteúdos duplicados
+//mostrar na tela todo o conteúdo da lista
+
+System.debug(colecaoDeNomes);
