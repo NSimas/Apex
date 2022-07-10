@@ -1,0 +1,23 @@
+List<Account> accounts = [Select name, phone From Account];
+
+For ( Account conta : Accounts) {
+	System.debug(conta);
+}
+
+//Outras montagens alternativas:
+
+select motivo__c, 
+SUM(amount) from opportunity where stagename = 'closed lost' AND closedate = LAST_MONTH group by motivo__c
+
+select motivo__c, 
+SUM(amount) from opportunity where closedate = LAST_MONTH group by motivo__c, stagename having stagename = 'closed lost' and stagename != null
+
+SELECT Name, phone, ( SELECT name, amount FROM Opportunities ) FROM Account Where Id NOT IN (Select accountId from opportunity)
+
+Trazendo Contas que
+possuem oportunidades associadas a elas
+
+SELECT Name, phone, ( SELECT name, amount FROM Opportunities ) FROM Account Where Id IN (Select accountId from opportunity)
+
+SELECT FirstName, LastName, Account.name, Account.Fax, Account.CustomerPriority__c FROM Contact WHERE FirstName like 'C%'
+
