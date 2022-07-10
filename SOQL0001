@@ -1,0 +1,39 @@
+//Via Apex
+//SELECT name, amount, stageName, Account.name, Account.Phone, Account.AnnualRevenue FROM Opportunity
+
+List<Opportunity> opps = [SELECT name, amount, stageName, Account.name, Account.Phone, Account.AnnualRevenue FROM Opportunity];
+
+For ( Opportunity opp : opps ) {
+	System.debug('Nome: ' + opp.name);
+	System.debug('Valor: ' + opp.amount);
+	System.debug('Estágio/Status: ' + opp.stageName);
+	System.debug('Nome da conta: ' + opp.Account.name);
+	System.debug('Telefone da conta: ' + opp.Account.Phone);
+	System.debug('Receita anual da conta: ' + opp.Account.AnnualRevenue);
+	System.debug ('\n');
+}
+	
+SELECT FirstName, LastName, Account.name, Account.Fax, Account.CustomerPriority__c FROM Contact WHERE FirstName like 'A%'
+
+List<Contact> contacts = [SELECT FirstName, LastName, Account.name, Account.Fax, Account.CustomerPriority__c FROM Contact WHERE FirstName like 'A%']
+
+For (Contact c : contacts ) {
+	System.debug('Nome: ' + c.FirstName);
+	System.debug('Sobrenome: ' + c.LastName);
+	System.debug('Nome da Conta: ' + c.Account.name);
+	System.debug('Fax da Conta: ' + c.Account.Fax);
+	System.debug('Prioridade da Conta: ' + c.Account.CustomerPriority__c);
+	System.debug ('\n');
+}
+
+List<Contact> ctts = [SELECT FirstName, LastName, Account.name, Account.Fax, Account.CustomerPriority__c 
+                      FROM Contact WHERE FirstName like 'A%'];
+
+for(Contact ctt: ctts){
+    System.debug('Nome: ' +  ctt.FirstName);
+    System.debug('Sobrenome: ' +  ctt.LastName);
+    System.debug('Nome da conta: ' +  ctt.Account.name);
+    System.debug('Fax: ' +  ctt.Account.Fax);
+    System.debug('Prioridade: ' +  ctt.Account.CustomerPriority__c);
+    System.debug('\n');
+}
