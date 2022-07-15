@@ -1,0 +1,72 @@
+//Atividade inicial de Trigger
+
+/*1) Crie uma trigger em Lead que antes de inserir 
+um novo lead, coloque informações nos campos 
+fax (XX) XXXXX - XXXX, Site www.example.com, 
+e receita anual 0.*/
+
+//Criando a Trigger LeadTrigger1
+trigger LeadTrigger1 on Lead (before insert) {
+	//Chamaremos o Lead de lead e acionamos a Trigger
+    For(Lead lead: Trigger.new){
+        //Alteração indireta das variáveis
+        lead.Fax='2342342';
+        lead.Website='www.site.com';
+        lead.AnnualRevenue=0;
+    }
+}
+
+/*2) Altere o código da trigger de Lead realizando 
+condições para verificar se:
+	se o fax estiver vazio, atribuir sem fax 
+    se site estiver vazio, atribuir site indefinido
+    se receita anual estiver vazio, atribuir 0*/
+
+//Criando a Trigger LeadTrigger2
+trigger LeadTrigger2 on Lead (before insert) {
+	//Chamaremos o Lead de l1 e acionamos a Trigger
+    For(Lead l1: Trigger.new){
+        //Se o fax tá vazio, preenchemos com valor padrão
+        If (l1.fax == Null){
+            lead.fax = 'Não possui.';
+        }
+        //Se o Site tá vazio, preenchemos com valor padrão
+        If (l1.WebSite == Null){
+            l1.Website = 'Não tem site.';
+        }
+        //Se a Receita Anual tá vazia, preenchemos com valor padrão
+        If (l1.AnnualRevenue == Null){
+            l1.AnnualRevenue = 0;
+        }
+    }
+}
+
+
+/*3) Atualize o código da trigger de Lead, 
+adicionando as seguintes condições:
+    Se receita anual >= 0 e < 10000
+        a classificação deverá ser Cold
+    Se receita anual >= 10000 e < 100000
+        a classificação deverá ser Warm
+    Se receita anual >= 100000
+        a classificação é Hot*/
+
+//Criando a Trigger LeadTrigger3
+trigger LeadTrigger3 on Lead (before insert) {
+    //Vamos chamar o Lead de ld1 e acionar a Trigger
+    For (Lead ld1: Trigger.new){
+        //Se a receita anual estiver entre 0 e 10.000
+        If (ld1.AnnualRevenue >= 0 && ld1.AnnualRevenue < 10000){
+            //Vai preencher o campo Rating com Cold
+            ld1.Rating = 'Cold';
+        //Se a receita anual estiver entre 10.000 e 100.000
+        } Else If (ld1.AnnualRevenue >= 100000 && ld1.AnnualRevenue){
+            //Vai preencher o campo Rating com Warm
+            ld1.Rating = 'Warm';
+        //Se a receita anual não se encaixar entre 0 e 100.000
+        } Else {
+            //Vai preencher o campo Rating com Hot
+            ld1.Rating = 'Hot';
+        }
+    }
+}
