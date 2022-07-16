@@ -1,0 +1,78 @@
+/* 1 - Antes de atualizar uma oportunidade, 
+Se a fase anterior estiver fechada e perdida 
+e tentarem alterar para qualquer outra nova fase. 
+Emitir mensagem de erro.
+
+2 - Após a atualização de uma oportunidade, 
+se o valor for maior ou igual a 50000 e a fase 
+estiver fechada e ganha, crie uma tarefa 
+associada a ela, com o assunto: 
+Parabenizar a empresa pela nova aquisição.
+
+3 -  Após inserir um Lead, a receita anual 
+estiver superior a 50000, criar uma tarefa 
+com assunto verificar se o cadastro está 
+completo associado ao lead.
+
+4 - Em oportunidade, quando a fase for 
+alterada para Closed Lost, deve ser inserido 
+um motivo. 
+Se a fase estiver em Closed Lost 
+e motivo estiver vazio, emitir uma mensagem 
+de erro. O motivo deve ser preenchido.
+Dica:
+caso não exista o campo motivo na sua org, 
+crie no gerenciador de objetos.*/
+
+//1)
+trigger TriggerOpp3 on Opportunity (before update) {
+	If (Trigger.isBefore && Trigger.isUpdate){
+        For (Opportunity op: Trigger.new){
+            IF(Trigger.oldMap.get(op.id).stagename == 'Closed Lost' && opp.stagename != 'Closed Lost'){
+                opp.stagename.addError('A fase Fechada e Perdida não pode ser alterada.')
+            }
+        }
+    }
+}
+
+//2)
+trigger TriggerOpp3 on Opportunity (after update) {
+	IF (Trigger.isBefore && Trigger.isUpdate) {
+        For (Opportunity Op3: Trigger.new) {
+            If (Trigger.oldMap.get(Op3.id).Amount >= 50000 && Op3.stagename == 'Closed Won') {
+                Task task = new Task (
+                    Subject = 'Gostaríamos de parabenizar imensamente esta nova parceria fechada!',
+                    WhoId = Op3.id
+                );
+                listNewTasks.add(task);
+            }
+        }
+    }
+    insert listNewTasks;
+}
+
+//3)
+trigger TriggerLead3 on Lead (after insert) {
+	IF (Trigger.isBefore && Trigger.isUpdate) {
+        For (Opportunity Op3: Trigger.new) {
+            If (Trigger.oldMap.get(Op3.id).Amount > 50000) {
+                Task task = new Task (
+                    Subject = 'Verificar se o cadastro está completo!',
+                    WhoId = Op3.id
+                );
+                listNewTasks.add(task);
+            }
+        }
+    }
+    insert listNewTasks;
+}
+//4)
+trigger TriggerOpp3 on Opportunity (after update) {
+    IF (Trigger.isBefore && Trigger.isUpdate) {
+        For (Opportunity Op3: Trigger.new) {
+            IF (Trigger.newMap.get(Op3.id).stagename == 'Closed Lost' && Trigger.newMap.get(Op3.id).Motivo__c == Null){
+                Op3.addError('Por gentileza, adicione o motivo!');
+            }
+        }
+    }
+}
