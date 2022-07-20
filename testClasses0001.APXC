@@ -1,0 +1,42 @@
+//Classe a ser testada:
+
+/*
+public class Calculadora0004 {
+    Public Static Decimal CelToFar(Decimal a){
+        Return (((a * 1.8)+32).setScale(2));
+    }
+    Public Static Decimal FarToCel(Decimal a){
+        Return (((a - 32) / 1.8).setScale(2));
+    }
+    Public Static Decimal KelToCel(Decimal a){
+        Return ((a - 273.15).setScale(2));
+    }
+    Public Static Decimal MetToCen(Decimal a){
+        Return ((a * 100).setScale(2));
+    }
+}
+*/
+
+//Classe de teste:
+
+@isTest
+public class TesteCalculadora0004 {
+    //testes positivos
+    @isTest Static Void testCelToFar(){
+        Decimal resultado = Calculadora0004.CelToFar(25);
+        System.assertEquals(77, resultado, 'Deu ruim no cálculo.');
+    }
+    @isTest Static Void testFarToCel(){
+        Decimal resultado = Calculadora0004.FarToCel(77);
+        System.assertEquals(25, resultado, 'Não deu bom no cálculo.');
+    }
+    //testes negativos
+    @isTest Static Void testKelToCel(){
+        Decimal resultado = Calculadora0004.KelToCel(3);
+        System.assertEquals(4, resultado, 'O resultado não conferiu com o esperado.');
+    }
+    @isTest Static Void testMetToCen(){
+        Decimal resultado = Calculadora0004.MetToCen(2);
+        System.assertEquals(25, resultado, 'O resultado foi diverso do esperado.');
+    }
+}
