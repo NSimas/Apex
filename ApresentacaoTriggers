@@ -1,0 +1,42 @@
+trigger AccountTrigger on Account (before insert, before update, after insert, after update) {
+    SWITCH on Trigger.operationType{
+        WHEN BEFORE_INSERT{
+            FOR(Account acc: Trigger.new){
+                //Para verificar se o CPF possui uma quantidade diferente do que deveria
+                IF(acc.CPF__c.lenght() != 11 && Trigger.isInsert){
+                    //Adiciona uma mensagem de erro
+                    acc.addError('Por gentileza, insira um CPF válildo!');
+                }//Close IF
+            }//Close FOR    
+        
+            FOR(Account acc: Trigger.new){
+                //Para verificar se o CPF possui uma quantidade diferente do que deveria
+                IF((acc.Email__c == Null && acc.Phone == Null) && Trigger.isInsert){
+                    //Adiciona uma mensagem de erro
+                    acc.addError('Por gentileza, preencha o telefone ou e-mail!');
+                }//Close IF
+            }//Close FOR    
+        }//Close When Before Insert
+        WHEN BEFORE_UPDATE{
+            FOR(Account acc: Trigger.new){
+                //Comparar o que estava no campo Curso antes da edição com o que está agora
+                IF((Trigger.oldMap.get(acc.id).acc.Curso__c) != (Trigger.newMap.get(acc.id).acc.Curso__c) && (acc.Grade_Curricular_do_Aluno__c.Concluido__c == False)){
+                    acc.addError('Você deve terminar o semestre antes de trocar de curso.')
+                }//Close IF
+            }//Close FOR
+        }//Close When Before Update
+               
+        WHEN AFTER_UPDATE{
+            FOR(Account acc: Trigger.new){
+                //Ver se alterou o semestre em que o aluno está cadastrado
+                IF((Trigger.oldMap.get(acc.id).acc.Grade_Curricular_do_Aluno__c.Semestre__c) != (Trigger.newMap.get(acc.id).acc.Grade_Curricular_do_Aluno__c.Semestre__c)){
+                    //Criar uma tarefa agradecendo a rematrícula
+                    Task task = new task (
+                        Subject = 'Obrigada por confiar em nosso trabalho e fazer a rematrícula!',
+                        WhoId.acc.Id
+                    );
+                }//Close IF
+            }//Close FOR
+        }//Close When After Update
+    }//Close Switch
+}//Close Trigger
