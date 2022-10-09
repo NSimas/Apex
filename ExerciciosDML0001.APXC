@@ -1,0 +1,104 @@
+//ATIVIDADE PRÁTICA
+//Apex DML
+
+/*1) Com Apex, insira 2 leads atribuindo 
+valores aos campos considerados obrigatórios. 
+Essa questão deve ser feita SEM LISTA e usando 
+a notação de construtor.*/
+
+lead newLead2 = new lead();
+ newAcct.name = 'Fulanin';
+ newAcct.company =  'Tinkcy Winky';
+ newAcct.phone = '25234856454';
+ newAcct.LeadSource = 'Working - Contacted'
+
+insert newLead2;
+
+lead newLead3 = new lead();
+ newAcct.name = 'Exodin';
+ newAcct.company =  'Dipsy';
+ newAcct.phone = '22253454';
+ newAcct.LeadSource = 'Working - Contacted'
+
+insert newLead3;
+
+/*2) Com Apex, insira 2 oportunidades atribuindo 
+valores aos campos considerados obrigatórios. 
+Essa questão deve ser feita SEM LISTA e usando 
+atribuição direta no objeto.*/
+
+Opportunity newOp1 = new Opportunity (
+	FirstName='Leka',
+    LastName='Moreira',
+    Company='Dipsy',
+    State='BA',
+    Email='l.moreira@email.com',
+);
+
+insert newOp1;
+
+Opportunity newOp2 = new Opportunity (
+	FirstName='Fulanin',
+    LastName='Couler',
+    Company='123 Alimentos',
+    State='MS',
+    Email='fcouler@email.com',
+);
+
+insert newOp2;
+
+/*3)Com Apex, insira uma lista de 10 Contatos com valores 
+obrigatórios, utilizando apenas um insert.*/
+
+List<Contact> ListaCtt1 = []
+
+(FirstName='Vanilza',LastName='Costa Sampaio',Department='Financeiro',Phone='239842734987',Fax='567239837',Title='Analista Pl')
+
+for(Account a: listAcc){
+    //atribuir o 0 para annualrevenue
+    a.annualrevenue = 0;
+}
+
+/*4) Com Apex, crie uma oportunidade, a oportunidade 
+deverá ter um nome, valor de 600000 e fase 
+Qualification, origem do Lead Other e outros campos 
+obrigatórios. Associe a oportunidade a qualquer 
+registro de sua org através do campo accountId.*/
+
+x
+
+/*5) Com Apex, crie uma conta chamada 
+AtividadeBraba, hot, telefone  88998877, 
+receita anual 450000 e após isso crie 2 contatos 
+associados a essa conta, contato B1 e B2 e 1 
+oportunidade também, atenção aos campos 
+obrigatórios e a associação(accountid).*/
+
+x
+
+/*6) Com Apex, atualize 3 registros de conta de 
+sua escolha alterando valores dos campos nome, 
+telefone e classificação, prioridade do cliente 
+e receita anual.*/
+
+x
+
+/*7) Com Apex, atualize o estado/província de 
+cobrança para CE de todas as contas que possuem 
+o estado/província vazios(null).*/
+
+x
+
+/*8) Com Apex, atualize todos os leads que 
+não possuem classificação para COLD.*/
+
+x
+
+/*9) Delete 3 registros de sua escolha 
+em Oportunidade e Contas.*/
+
+x
+
+//10) Delete as contas com data de criação para o dia de HOJE.
+
+x

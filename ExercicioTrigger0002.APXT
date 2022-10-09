@@ -1,0 +1,73 @@
+trigger AccountTrigger1 on Account (before insert, before update, after insert) {
+
+    If(Trigger.isBefore){ 
+        For(Account account : trigger.new){ 
+            If(String.IsBlank(account.Phone) && Trigger.isInsert){ 
+                account.addError=('O telefone deve ser preenchido.');
+                //Para aparecer no próprio campo
+                accout.Phone.addError=('O telefone deve ser preenchido.')
+            } 
+            If((account.Name.Lenght() < 4) && Trigger.isInsert){
+                account.addError=('O campo de nome deve ter mais caracteres!');
+            } 
+            If(Decimal account.AnnualRevenue <0) && Trigger.isInsert){ 
+                account.addError=('A receita tem que ser positiva.');
+        }
+    }
+}
+
+/*Em oportunidade, quando a fase for alterada para Closed
+Lost, deve ser inserido um motivo.
+
+Se a fase estiver em Closed Lost e motivo estiver vazio, 
+emitir uma mensagem de erro. O motivo deve ser preenchido.
+
+Dicas:
+caso não exista o campo motivo na sua org, crie no 
+gerenciador de objetos. */
+
+trigger O1 on Opportunity (before update) {
+    For(Opportunity O2 : trigger.new){
+        Ff(O2.stagename == 'closed lost'
+            && O2.motivo__c == null) {
+                O2.addError
+                ('Faltou preencher o motivo!');
+        }
+    }
+}
+
+trigger LeadTrigger2 on Lead 
+(before insert, before update, after insert) {
+    
+    //eventos before insert
+    If(Trigger.isBefore && Trigger.isInsert){
+        For(Lead l1: Trigger.new){
+            If(l1.Phone == null && l1.MobilePhone == null) {
+                l1.addError('Pegue o telefone ou celular do lead!');
+                //poderia usar o string.isblank também
+                /* poderia ser assim:
+                 * if(lead.mobilephone == '' || lead.mobilephone == null && lead.phone == '' || lead.phone == null){
+                lead.addError('O telefone ou o Celular deve ser preenchido');
+				 * ou isolar ainda mais:
+				 *  if((lead.mobilephone == '' || lead.mobilephone == null) && (lead.phone == '' || lead.phone == null)){
+                lead.addError('O telefone ou o Celular deve ser preenchido');
+				*/
+            }
+    	}
+    }
+
+    //eventos before update
+    If(Trigger.isBefore && Trigger.isUpdate){
+        For(Lead l1: Trigger.new){
+        
+    	}
+    }
+    
+    //evetos after insert
+    IF(Trigger.isAfter && Trigger.isInsert){
+        For(Lead l1: Trigger.new){
+        
+    	}
+    }
+    
+}
